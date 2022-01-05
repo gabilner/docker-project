@@ -1,1 +1,16 @@
 jenkins@jenkins-slave:~/dockerpro/dockeimg$
+
+
+Stage 1
+Docker file:
+RUN apk update
+RUN apk add --no-cache python3 py3-pip
+RUN apk add git
+mkdir -p /home/git
+
+Stage 2
+docker build -t="docker-alpine01" . 
+###   we creating the docker image with git and python
+Stage 3
+mkdir -p /home/git
+docker run --name dockr-alpine-vm -d -v /home/jenkins/dockerpro/dockeimg/volumepath:/home/git docker-alpine01 top
