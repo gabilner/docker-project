@@ -12,8 +12,7 @@ do
     if [ $count -eq 0  ]
     then
         docker exec -d dockr-alpine-vm git clone https://github.com/gabilner/docker-project.git /home/git
-        docker exec -d dockr-alpine-vm cd /home/git
-        docker exec -d dockr-alpine-vm python3 pyscript.py
+        docker exec -d dockr-alpine-vm python3 /home/gitpyscript.py
     fi
     echo "Time Now: `date +%H:%M:%S`"
     echo "Sleeping for 10 seconds"
