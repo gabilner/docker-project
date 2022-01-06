@@ -15,32 +15,41 @@ sleep 5
 ###########################   run script in the docker container ##############
 docker exec -d dockr-alpine-vm rm -rf /home/git
 docker exec -d dockr-alpine-vm git clone https://github.com/gabilner/docker-project.git /home/git
-runtime="10 second"
+runtime="15 second"
+sleep 5
+docker exec -d dockr-alpine-vm chmod 755 /home/git/pyscript.py
+
+
 endtime=$(date -ud "$runtime" +%s)
 
 mytime=$(date -u +%s)
-#echo $mytime
-#echo $endtime
+echo "$mytime this is the first mytime"
+echo "$endtime this is the endtime"
 count=0
-while [ $(date -u +%s) -le $endtime ]
+while true
 do
     if [ $count -eq 0  ]
     then
-        
-        docker exec -d dockr-alpine-vm python3 /home/gitpyscript.py
-        count=1
 
-    fi
-   # echo "Time Now: `date +%H:%M:%S`"
-   # echo "Sleeping for 10 seconds"
-   # sleep 11
+        docker exec -d dockr-alpine-vm python3 /home/git/pyscript.py
+        count=1
+       echo "running command python3 pscript"
+     fi
+
+FILE=/home/jenkins/dockerpro/dockeimg/volumepath/sample.txt
+if [ -f "$FILE" ]; then
+    echo "$FILE exists."
+    exit 0
+fi
+
    mytime=$(date -u +%s)
-    echo "$mytime this mu time"
-    echo "$endtime this is endtime"
+#    echo "$mytime this mu time"
+#    echo "$endtime this is endtime"
 if [ $endtime -lt $mytime   ]
     then
         echo "THE SCRIPT TAKE MORE THEN 10 SECONDS"
         exit 1
+
     fi
 done
 
