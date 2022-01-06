@@ -1,4 +1,6 @@
 #!/usr/bin/python
 
 
-print ('pythn script working') > home/git/test.txt
+text_file = open("/home/git/sample.txt", "w")
+n = text_file.write('Welcome to my script')
+text_file.close()
