@@ -1,5 +1,6 @@
 #!/bin/sh
 
+docker exec -d dockr-alpine-vm git clone https://github.com/gabilner/docker-project.git /home/git
 runtime="10 second"
 endtime=$(date -ud "$runtime" +%s)
 
@@ -11,7 +12,7 @@ while [ $(date -u +%s) -le $endtime ]
 do
     if [ $count -eq 0  ]
     then
-        docker exec -d dockr-alpine-vm git clone https://github.com/gabilner/docker-project.git /home/git
+        
         docker exec -d dockr-alpine-vm python3 /home/gitpyscript.py
     fi
     echo "Time Now: `date +%H:%M:%S`"
